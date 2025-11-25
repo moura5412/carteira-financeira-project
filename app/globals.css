@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+.text-big{
+  font-size: 20px;
+}
+
+.error{
+  color: red;
+  font-size: 14px;
+}
+
+.sucess{
+  color: green;
+  font-size: 14px;
+}
+
+.warning{
+  font-size: 14px;
+  padding: 40px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main{
+  width: auto;
+  height: auto;
+  position: relative;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.main > *{
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.main > *:last-child{
+  margin-bottom: 0;
+}
+
+.button-group{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.navbar {
+  width: 100%;
+  height: 60px;
+  background-color: #1a1a1a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.nav-links a:hover {
+  background: #333;
+}
+
+.content {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.08);
+}
+
+.card > * {
+  margin-bottom: 5px;
+} 
+
+.card > *:last-child {
+  margin-bottom: 0;
+}
+
+input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+input:focus {
+  border-color: #1a1a1a;
+  outline: none;
+}
+
+button, .button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+button.primary, .button.primary {
+  background: #1a1a1a;
+  color: white;
+}
+
+button.primary:hover , .button.primary:hover {
+  background: #333;
+}
+
+button.danger, .button.danger {
+  background: #c0392b;
+  color: white;
+}
+
+button.danger:hover, .button.danger:hover {
+  background: #962d22;
+}
+
+a {
+  color: #1a1a1a;
+  transition: 0.3s;
+}
