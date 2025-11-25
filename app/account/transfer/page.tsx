@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function TransferPage() {
   const router = useRouter();
 
-  const [toEmail, setToEmail] = useState("");
+  const [accountIdDestino, setAccountIdDestino] = useState("");
   const [amount, setAmount] = useState<number>(0);
 
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ export default function TransferPage() {
       const res = await fetch("/api/account/transfer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ toEmail, amount }),
+        body: JSON.stringify({ accountIdDestino, amount }),
       });
 
       const data = await res.json();
@@ -53,10 +53,10 @@ export default function TransferPage() {
 
       <form onSubmit={handleSubmit} className="form">
         <input
-          type="email"
-          placeholder="Email do destinatário"
-          value={toEmail}
-          onChange={(e) => setToEmail(e.target.value)}
+          type="text"
+          placeholder="ID da conta destino"
+          value={accountIdDestino}
+          onChange={(e) => setAccountIdDestino(e.target.value)}
           required
         />
 
@@ -71,7 +71,7 @@ export default function TransferPage() {
         />
 
         {error && <div className="error">{error}</div>}
-        {success && <div className="warning">{success}</div>}
+        {success && <div className="sucess">{success}</div>}
 
         <button type="submit" disabled={loading} className="primary">
           {loading ? "Enviando..." : "Transferir"}

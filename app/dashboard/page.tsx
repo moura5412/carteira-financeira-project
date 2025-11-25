@@ -7,6 +7,7 @@ interface UserData {
   id: string;
   name: string;
   email: string;
+  accountId: string;
   balance: number;
 }
 
@@ -51,8 +52,17 @@ export default function DashboardPage() {
       <div className="card">
         <h2>Olá, {user.name}!</h2>
         <p>Email: {user.email}</p>
+        <p>
+          Id da Conta: <strong>{user.accountId}</strong>
+        </p>
         <p className="text-big">
-          <strong>Saldo: R$ {user.balance}</strong>
+          <strong>
+            Saldo:{" "}
+            {Number(user.balance).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </strong>
         </p>
       </div>
 

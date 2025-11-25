@@ -27,7 +27,6 @@ body {
 
 .warning{
   font-size: 14px;
-  padding: 40px;
 }
 
 .form{
@@ -41,7 +40,7 @@ body {
   height: auto;
   position: relative;
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 450px;
 }
 
 .main > *{
@@ -109,6 +108,7 @@ body {
   padding: 20px;
   border: 1px solid #ddd;
   box-shadow: 0px 3px 6px rgba(0,0,0,0.08);
+  margin-bottom: 15px;
 }
 
 .card > * {

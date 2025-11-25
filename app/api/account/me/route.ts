@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
-import { getUserIdFromCookies } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { getUserIdFromCookies } from "@/lib/auth";
 import type { User } from "@/types/user";
 import type { Account } from "@/types/account";
+import type { UserWithAccount } from "@/types/userWithAccount";
 
 export async function GET() {
   const userId = await getUserIdFromCookies();
-
   if (!userId) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
   }
 
   const user = db
@@ -27,10 +27,11 @@ export async function GET() {
     return NextResponse.json({ error: "Conta não encontrada" }, { status: 404 });
   }
 
-  return NextResponse.json({
-    id: user.id,
-    name: user.name,
-    email: user.email,
+  const response: UserWithAccount = {
+    ...user,
+    accountId: account.id,
     balance: account.balance,
-  });
+  };
+
+  return NextResponse.json(response);
 }
