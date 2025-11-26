@@ -1,30 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💸 Carteira Financeira — Next.js + TypeScript + SQLite
 
-## Getting Started
+Aplicação completa de **carteira digital**, desenvolvida com **Next.js 14**, **TypeScript** e **SQLite**, permitindo:
 
-First, run the development server:
+- Cadastro e login com autenticação via JWT
+- Depósitos
+- Transferências entre contas
+- Reversão de operações
+- Histórico de transações
+- Proteção de rotas
+- Interface simples e funcional
+
+Este projeto foi criado com foco em **boas práticas**, **arquitetura limpa**, **segurança**, e uso real do App Router do Next.js.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- **Next.js 14 (App Router)**
+- **TypeScript**
+- **SQLite (better-sqlite3)**
+- **JWT (jsonwebtoken)**
+- **bcryptjs**
+- **CSS puro**
+- **Server Actions**
+- **Rotas de API**
+
+---
+
+## 📦 Funcionalidades
+
+### 🔑 Autenticação
+
+- Cadastro de usuários
+- Login com JWT
+- Cookies HTTP-only
+- Middleware de proteção
+
+### 💰 Operações Financeiras
+
+- Realizar depósitos
+- Transferir para outra conta
+- Reverter uma operação anterior
+- Ver histórico completo
+
+---
+
+## 🛠️ Como Rodar o Projeto
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/moura5412/carteira-financeira-project
+cd carteira-financeira-project
+```
+
+### 2. Instale as dependências
+
+```bash
+npm install
+```
+
+### 3. Gere o banco de dados
+
+```bash
+npm run migrate
+```
+
+### 4. Inicie o servidor
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Acesse o projeto em:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+👉 http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔒 Segurança
 
-## Learn More
+Cookies HTTP-only
+JWT com expiração
+Transações atômicas com SQLite
+Proteção de rotas no servidor
+Validação robusta de dados
 
-To learn more about Next.js, take a look at the following resources:
+## Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Autenticação
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Método | Rota               | Descrição |
+| ------ | ------------------ | --------- |
+| POST   | /api/auth/register | Cadastro  |
+| POST   | /api/auth/login    | Login     |
 
-## Deploy on Vercel
+### Conta
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Método | Rota                  | Descrição     |
+| ------ | --------------------- | ------------- |
+| POST   | /api/account/deposit  | Depósito      |
+| POST   | /api/account/transfer | Transferência |
+| POST   | /api/account/reverse  | Reversão      |
+| GET    | /api/account/history  | Histórico     |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧑‍💻 Autor
+
+Gabriel de Moura Souza
+GitHub: https://github.com/moura5412
