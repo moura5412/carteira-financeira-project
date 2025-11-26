@@ -22,17 +22,22 @@ export async function GET() {
     );
   }
 
-  const transactions = db
-    .prepare(
-      `
-      SELECT *
-      FROM transactions
-      WHERE fromAccountId = ?
-         OR toAccountId = ?
-      ORDER BY createdAt DESC
-      `
-    )
-    .all(account.id, account.id) as Transaction[];
+const transactions = db
+  .prepare(
+    `
+    SELECT *
+    FROM transactions
+    WHERE fromAccountId = ?
+       OR toAccountId = ?
+       OR relatedTransactionId IN (
+            SELECT id FROM transactions
+            WHERE fromAccountId = ? OR toAccountId = ?
+       )
+    ORDER BY createdAt DESC
+    `
+  )
+  .all(account.id, account.id, account.id, account.id) as Transaction[];
+
 
   return NextResponse.json(transactions);
 }

@@ -7,10 +7,10 @@ interface Transaction {
   id: string;
   type: "DEPOSIT" | "TRANSFER" | "REVERSAL";
   amount: number;
-  fromAccountId?: string | null;
-  toAccountId?: string | null;
+  fromAccountId: string | null;
+  toAccountId: string | null;
   createdAt?: string;
-  relatedTransactionId?: string | null;
+  relatedTransactionId: string | null;
 }
 
 export default function HistoryPage() {
@@ -39,47 +39,72 @@ export default function HistoryPage() {
     load();
   }, [router]);
 
-  if (loading) {
-    return <p className="warning">Carregando histórico...</p>;
+  if (loading) return <p className="warning">Carregando histórico...</p>;
+
+  async function handleReverse(id: string) {
+    const res = await fetch("/api/account/reverse", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ transactionId: id }),
+    });
+
+    const data = await res.json();
+    alert(data.message || data.error);
+    window.location.reload();
   }
+
+  const transactions = data;
 
   return (
     <div className="main">
       <h1>Histórico de Transações</h1>
 
-      {data.length === 0 && <p>Nenhuma transação encontrada.</p>}
+      {transactions.length === 0 && <p>Nenhuma transação encontrada.</p>}
 
       <ul>
-        {data.map((t) => (
-          <li key={t.id} className="card">
-            <p className="text-big">
-              <strong>
-                {t.type === "DEPOSIT" && "💰 Depósito"}
-                {t.type === "TRANSFER" && "🔁 Transferência"}
-                {t.type === "REVERSAL" && "↩️ Reversão"}
-              </strong>
-            </p>
+        {transactions.map((t) => {
+          const isReversedOriginal =
+            t.relatedTransactionId !== null && t.type !== "REVERSAL";
 
-            <p>
-              Valor: <strong>R$ {t.amount}</strong>
-            </p>
+          return (
+            <li key={t.id} className="card">
+              <p className="text-big">
+                <strong>
+                  {t.type === "DEPOSIT" && "💰 Depósito"}
+                  {t.type === "TRANSFER" && "🔁 Transferência"}
+                  {t.type === "REVERSAL" && "↩️ Reversão"}
+                </strong>
+              </p>
 
-            {t.createdAt && (
-              <p>Data: {new Date(t.createdAt).toLocaleString()}</p>
-            )}
+              <p className="text-small">ID: {t.id}</p>
 
-            {t.type === "TRANSFER" && (
-              <>
-                <p>De: {t.fromAccountId}</p>
-                <p>Para: {t.toAccountId}</p>
-              </>
-            )}
+              <p>
+                Valor: <strong>R$ {Number(t.amount).toFixed(2)}</strong>
+              </p>
 
-            {t.type === "REVERSAL" && (
-              <p>Transação original: {t.relatedTransactionId}</p>
-            )}
-          </li>
-        ))}
+              {t.createdAt && (
+                <p>Data: {new Date(t.createdAt).toLocaleString()}</p>
+              )}
+
+              {t.type === "TRANSFER" && (
+                <>
+                  <p>De: {t.fromAccountId}</p>
+                  <p>Para: {t.toAccountId}</p>
+                </>
+              )}
+
+              {isReversedOriginal && (
+                <p className="error">⚠️ Operação Revertida</p>
+              )}
+
+              {!isReversedOriginal && t.type !== "REVERSAL" && (
+                <button className="danger" onClick={() => handleReverse(t.id)}>
+                  Reverter
+                </button>
+              )}
+            </li>
+          );
+        })}
       </ul>
 
       <button onClick={() => router.push("/dashboard")} className="primary">
